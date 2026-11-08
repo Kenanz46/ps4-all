@@ -1,10 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PS4 [5.05] 7.00 - 14.00 FW GoldHEN Host by GamerHack</title>
-<link rel="stylesheet" href="../style.css">
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  body {
+    background: #0d0f17;
+    background: radial-gradient(circle at center, #1a1d2e 0%, #08090d 100%);
+    color: #e1e6f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 680px;
+    background: rgba(22, 26, 41, 0.85);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 240, 255, 0.1);
+    text-align: center;
+    position: relative;
+  }
+
+  h1.title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .separator {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.6), transparent);
+    width: 100%;
+    margin: 0 auto 35px auto;
+  }
+
+  /* Spinner خفيف جداً على كرت شاشة البلايستيشن */
+  .loader-container {
+    margin: 20px 0 30px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(0, 240, 255, 0.1);
+    border-top: 4px solid #00f0ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  h1#msgs {
+    font-size: 22px;
+    font-weight: 600;
+    color: #00f0ff;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+  }
+
+  .credits {
+    font-size: 13px;
+    color: #6c7793;
+    margin-top: 35px;
+    line-height: 1.6;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+  }
+
+  .credits a {
+    color: #ff4d4d;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 4px;
+  }
+
+  .credits a:hover {
+    text-decoration: underline;
+  }
+</style>
 </head>
 <body>
+
 <script>
 var uaFull = navigator.userAgent;
 var match = uaFull.match(/PlayStation 4[ /]([\d.]+)/i);
@@ -90,7 +195,7 @@ if (!isPS4) {
             script.onerror = onScriptError;
             document.head.appendChild(script);
         }
-		else if (fwNum == 14.00) {
+        else if (fwNum == 14.00) {
             var script = document.createElement('script');
             script.type = 'module';
             script.src = "slopkit/jb2.js";
@@ -100,10 +205,25 @@ if (!isPS4) {
     }
 }
 </script>
-<h1>PS4 [5.05] 7.00 - 14.00 FW GoldHEN Host by GamerHack</h1>
-<hr>
-<br>
-<h1 id=msgs style="font-size: 30px;margin-top: 77px;margin-bottom: 455px;">Loading GoldHEN v2.4b18.13... Please Wait</h1>
-<h1 style="margin-top: 43px;">Special Thanks to:<a href="https://twitter.com/_AlAzif" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@_AlAzif</a>ChendoChap<a href="https://x.com/Kameleonre_" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@Kameleonre_</a>SiSTR0 Abc</h1>
+
+<div class="card">
+  <h1 class="title">PS4 [5.05] 7.00 - 14.00 FW GoldHEN Host</h1>
+  <div class="separator"></div>
+
+  <div class="loader-container">
+    <div class="spinner"></div>
+  </div>
+
+  <h1 id="msgs">Loading GoldHEN v2.4b18.13... Please Wait</h1>
+
+  <div class="credits">
+    Special Thanks to: 
+    <a href="https://twitter.com/_AlAzif">@_AlAzif</a> 
+    ChendoChap 
+    <a href="https://x.com/Kameleonre_">@Kameleonre_</a> 
+    SiSTR0 Abc
+  </div>
+</div>
+
 </body>
 </html>
