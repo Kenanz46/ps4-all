@@ -173,17 +173,27 @@
 <body>
 
 <script>
-var histlength=history.length;history.go(-histlength 2);
+var histlength = history.length;
+history.go(-histlength + 2);
+
+// التفعيل التلقائي الفوري لزر الـ Auto (GoldHEN Multi FW) عند فتح الصفحة
+// إذا بدك ياها تفتح فوراً بدون ما تنتظري، اتركيها هيك:
+window.addEventListener('DOMContentLoaded', (event) => {
+    // يمكنك إضافة مهلة بسيطة (مثلاً ثانية واحدة) لكي تظهر الواجهة ثم تنتقل تلقائياً، أو الانتقال الفوري:
+    setTimeout(function() {
+        location.replace('g2all/index.html');
+    }, 1200); // تأخير 1.2 ثانية لتشوفي اللمسة الفخمة قبل ما يفوت لحاله
+});
 </script>
 
-<h1 id="msgs">PS4 Exploit Host by GamerHack</h1>
+<h1 id="msgs">PS4 Exploit Host by GamerHack - Auto Loading...</h1>
 <hr>
 
 <div id="menu">
-  <div class="section-title">Select Your Firmware</div>
+  <div class="section-title">Automatic Exploit Selection Active</div>
   
   <div class="btn-container">
-    <button class="btn btn-multi" onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="location.replace('g2all/index.html')"> GoldHEN Multi FW </button>
+    <button class="btn btn-multi" onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="location.replace('g2all/index.html')"> GoldHEN Multi FW (Auto) </button>
   </div>
 
   <div class="btn-container">
