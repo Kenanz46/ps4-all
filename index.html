@@ -1,51 +1,237 @@
 <!DOCTYPE html>
-<html><head>
-<title>PS4  Exploit Host by GamerHack</title>
-<link rel="stylesheet" href="style.css">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS4 Exploit Host by GamerHack</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  
+  body {
+    background: #0d0f17;
+    background: radial-gradient(circle at center, #1a1d2e 0%, #08090d 100%);
+    color: #e1e6f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  h1#msgs {
+    font-size: 24px;
+    font-weight: 600;
+    color: #00f0ff;
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+    margin: 15px 0 20px 0;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.5), transparent);
+    width: 80%;
+    max-width: 800px;
+    margin-bottom: 25px;
+  }
+
+  #menu, #crypto {
+    width: 100%;
+    max-width: 760px;
+    background: rgba(22, 26, 41, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+
+  #crypto {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #ffd700;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  }
+
+  .btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  button.btn {
+    background: #181c2b;
+    color: #c8d0e0;
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    min-width: 180px;
+    outline: none;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  button.btn:hover, button.btn:focus {
+    background: #00f0ff;
+    color: #090b10;
+    border-color: #00f0ff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+  }
+
+  button.btn-multi {
+    background: linear-gradient(135deg, #7928ca 0%, #ff0080 100%);
+    color: #ffffff;
+    border: none;
+    width: 100%;
+    max-width: 420px;
+    padding: 14px 24px;
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  button.btn-multi:hover, button.btn-multi:focus {
+    background: linear-gradient(135deg, #8a3ade 0%, #ff1a8c 100%);
+    color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+  }
+
+  button.btn-onln {
+    background: rgba(255, 215, 0, 0.05);
+    color: #ffd700;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    width: 100%;
+    max-width: 468px;
+    margin: 25px auto 15px auto !important;
+  }
+
+  button.btn-onln:hover, button.btn-onln:focus {
+    background: #ffd700;
+    color: #000000;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: #6c7793;
+    margin-top: 30px;
+    line-height: 1.6;
+  }
+
+  .footer-text a {
+    color: #ff4d4d;
+    font-weight: bold;
+    margin: 0 6px;
+  }
+
+  .footer-text a:hover {
+    text-decoration: underline;
+  }
+
+  #crypto img {
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    margin: 10px 0;
+  }
+
+  .crypto-address {
+    font-family: monospace;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #a0aec0;
+    display: inline-block;
+    word-break: break-all;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+</style>
 </head>
 <body>
+
 <script>
 var histlength=history.length;history.go(-histlength 2);
 </script>
-<h1 id=msgs>PS4  Exploit Host by GamerHack</h1>
+
+<h1 id="msgs">PS4 Exploit Host by GamerHack</h1>
 <hr>
-<br>
-<div id=menu>
-<h1 style="font-size: 18px;color: yellow;">Select Your Firmware</h1>
-<button class="btn btn-multi" onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'" onclick="location.replace('g2all/index.html')"> GoldHEN Multi FW </button>
-<button class="btn" onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'" onclick="location.replace('505/index.html')"> 5.05 FW v2.5 </button>
-<a href="672goldhen/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'"> 6.72 FW GoldHEN </button></a>
-<a href="672/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'"> 6.72 FW v3.0 </button></a>
-<br>
-<a href="900goldhen/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'"> 9.00 FW GoldHEN </button></a>
-<a href="900v3/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'"> 9.00 FW v3.0 </button></a>
-<br>
-<button class="btn" onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'" onclick="location.replace('restore/index.html')"> Restore Host </button>
-<br>
-<button class="btn btn-onln" onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" onmouseout="msgs.innerHTML='PS4  Exploit Host by GamerHack'" onclick="donations()" style="margin-top: 137px;margin-bottom: 77px;width: 468px;"> For Donations (Only in Cryptocurrencies) </button>
-<h1 style="margin-top: 78px;">Designed by:<a href="https://twitter.com/GamerHack93" style="color: #f31414;margin-left: 10px;margin-right: 10px;">@GamerHack93</a>A special thanks to all the devs on the scene.</h1>
+
+<div id="menu">
+  <div class="section-title">Select Your Firmware</div>
+  
+  <div class="btn-container">
+    <button class="btn btn-multi" onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="location.replace('g2all/index.html')"> GoldHEN Multi FW </button>
+  </div>
+
+  <div class="btn-container">
+    <button class="btn" onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="location.replace('505/index.html')"> 5.05 FW v2.5 </button>
+    <a href="672goldhen/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'"> 6.72 FW GoldHEN </button></a>
+    <a href="672/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'"> 6.72 FW v3.0 </button></a>
+  </div>
+
+  <div class="btn-container">
+    <a href="900goldhen/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'"> 9.00 FW GoldHEN </button></a>
+    <a href="900v3/index.html"><button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'"> 9.00 FW v3.0 </button></a>
+    <button class="btn" onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="location.replace('restore/index.html')"> Restore Host </button>
+  </div>
+
+  <button class="btn btn-onln" onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" onmouseout="msgs.innerHTML='PS4 Exploit Host by GamerHack'" onclick="donations()"> For Donations (Only in Cryptocurrencies) </button>
+
+  <div class="footer-text">
+    Designed by: <a href="https://twitter.com/GamerHack93">@GamerHack93</a> | Special thanks to all the devs on the scene.
+  </div>
 </div>
-<div id=crypto>
-<h1 style="font-size: 18px;color: yellow;">Donate with Bitcoin (BTC):</h1>
-<img src="btc.jpg" width="150" height="150">
-<br>
-<h1 style="font-size: 18px;">bc1q6cnsykmvem6zgw8wag3ygee0jkhtxj6rkp2nrm</h1>
-<br>
-<h1 style="font-size: 18px;color: yellow;">Donate with Ethereum (ETH):</h1>
-<img src="eth.jpg" width="150" height="150">
-<h1 style="font-size: 18px;">0x7Ae1825ddE196925dB8B7832F436cA0eAeaF932c</h1>
-<button class="btn" onclick="load_menu()"> Return </button>
+
+<div id="crypto">
+  <div class="section-title">Donate with Bitcoin (BTC)</div>
+  <img src="btc.jpg" width="150" height="150" alt="BTC QR">
+  <br>
+  <div class="crypto-address">bc1q6cnsykmvem6zgw8wag3ygee0jkhtxj6rkp2nrm</div>
+  <br><br>
+
+  <div class="section-title">Donate with Ethereum (ETH)</div>
+  <img src="eth.jpg" width="150" height="150" alt="ETH QR">
+  <br>
+  <div class="crypto-address">0x7Ae1825ddE196925dB8B7832F436cA0eAeaF932c</div>
+  <br><br>
+
+  <button class="btn" onclick="load_menu()"> Return </button>
 </div>
+
 <script>
 function donations(){
-document.getElementById("crypto").style.display = "block";
-document.getElementById("menu").style.display = "none";
+  document.getElementById("crypto").style.display = "block";
+  document.getElementById("menu").style.display = "none";
 }
 
 function load_menu(){
-document.getElementById("menu").style.display = "block";
-document.getElementById("crypto").style.display = "none";
+  document.getElementById("menu").style.display = "block";
+  document.getElementById("crypto").style.display = "none";
 }
 </script>
+
 </body>
 </html>
