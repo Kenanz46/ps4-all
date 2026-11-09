@@ -19,36 +19,36 @@ body {
 }
 
 /* ==========================================================
-   اللوجو الإبداعي المتحرك (مع تأثير التلاشي والبلور بالأطراف)
+   اللوجو السيبراني المتحرك (حجم كبير + تلاشي Blur للأطراف)
    ========================================================== */
 body::before {
   content: "";
   position: fixed;
   top: 25px;
   left: 30px;
-  width: 65px;
-  height: 65px;
+  width: 120px;
+  height: 120px;
   background-image: url('img.jpg');
   background-position: center;
   background-size: cover;
   border-radius: 50%;
   
-  /* سحر التلاشي التدريجي (Blur Fade Edge) للأطراف */
-  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 88%);
-  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 0) 88%);
+  /* تأثير التلاشي التدريجي والبلور للأطراف */
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 58%, rgba(0, 0, 0, 0) 88%);
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 58%, rgba(0, 0, 0, 0) 88%);
   
-  /* إضاءة الهولوغرام النيوني وزطّة الألوان */
-  filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.5));
+  /* وهج نيوئي سينمائي مريح */
+  filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.5));
   z-index: 9999;
   animation: cyberFloat 4s ease-in-out infinite;
   transition: all 0.3s ease;
 }
 
-/* حركة الطفو السينمائية للوجو */
+/* حركة الطفو والهولوغرام للوجو */
 @keyframes cyberFloat {
-  0% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4)); }
-  50% { transform: translateY(-6px) rotate(3deg); filter: drop-shadow(0 0 18px rgba(255, 123, 0, 0.7)); }
-  100% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.4)); }
+  0% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.4)); }
+  50% { transform: translateY(-8px) rotate(2deg); filter: drop-shadow(0 0 24px rgba(255, 123, 0, 0.7)); }
+  100% { transform: translateY(0px) rotate(0deg); filter: drop-shadow(0 0 14px rgba(0, 240, 255, 0.4)); }
 }
 
 h1 {
@@ -172,9 +172,4 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-/* تنظيف الـ IDs الفرعية للريبو الأصلي */
-#progress, #tools, #lnx, #mods {
-  display: none;
 }
