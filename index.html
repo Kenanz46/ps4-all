@@ -5,25 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
-<style>
-  /* فرض شفافية خلفية البودي محلياً لتظهر الماتريكس الخضراء بدون تعديل style.css */
-  body {
-      background: transparent !important;
-  }
-  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الماتريكس بكل وضوح وبدون أي تأثير على وظائفها */
-  .main-container {
-      position: relative;
-      z-index: 10;
-  }
-</style>
 </head>
 <body>
-
-<!-- خلفية الماتريكس الخضراء الحية والنقية للصفحة الرئيسية فقط -->
-<canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
-
-<!-- بداية حاوية المحتوى الرئيسي -->
-<div class="main-container">
 
 <h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
 <hr>
@@ -98,8 +81,6 @@
   </div>
 </div>
 
-</div> <!-- نهاية حاوية المحتوى الرئيسي -->
-
 <!-- === (تم إخفاء قسم الكريبتو بالكامل وجعله Junk داخل الكود أيضاً) === -->
 <!--
 <div id="crypto">
@@ -127,69 +108,6 @@ function load_menu(){
 }
 </script>
 -->
-
-<script>
-  const canvas = document.getElementById('matrixCanvas');
-  const ctx = canvas.getContext('2d');
-
-  function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
-  const fontSize = 13;
-  
-  const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 4500);
-  const particles = [];
-
-  for (let i = 0; i < particleCount; i++) {
-      particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          speed: Math.random() * 0.8 + 0.3,
-          char: safeChars.charAt(Math.floor(Math.random() * safeChars.length)),
-          alpha: Math.random(),
-          fading: Math.random() > 0.5 ? 0.01 : -0.01
-      });
-  }
-
-  function animate() {
-      // مسح نظيف وحاد للشاشة بدون أي تلطيش
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      ctx.font = fontSize + 'px monospace';
-
-      for (let p of particles) {
-          p.y += p.speed;
-
-          p.alpha += p.fading;
-          if (p.alpha <= 0.1 || p.alpha >= 0.85) {
-              p.fading = -p.fading;
-          }
-
-          if (Math.random() < 0.02) {
-              p.char = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
-          }
-
-          // **تم تحويل اللون إلى الأخضر الفسفوري الكلاسيكي الخاص بفيلم الماتريكس**
-          ctx.fillStyle = 'rgba(0, 255, 65, ' + p.alpha + ')';
-          ctx.fillText(p.char, p.x, p.y);
-
-          if (p.y > canvas.height) {
-              p.y = -10;
-              p.x = Math.random() * canvas.width;
-              p.speed = Math.random() * 0.8 + 0.3;
-          }
-      }
-
-      requestAnimationFrame(animate);
-  }
-
-  requestAnimationFrame(animate);
-</script>
 
 </body>
 </html>
