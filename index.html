@@ -6,11 +6,11 @@
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Force body background transparent locally without editing style.css */
+  /* فرض شفافية خلفية البودي محلياً لتظهر الماتريكس الخضراء بدون تعديل style.css */
   body {
       background: transparent !important;
   }
-  /* Main content container to sit above the live canvas background */
+  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الماتريكس بكل وضوح وبدون أي تأثير على وظائفها */
   .main-container {
       position: relative;
       z-index: 10;
@@ -19,86 +19,86 @@
 </head>
 <body>
 
-<!-- Live digital particle wallpaper canvas -->
+<!-- خلفية الماتريكس الخضراء الحية والنقية للصفحة الرئيسية فقط -->
 <canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
-<!-- Main content container -->
+<!-- بداية حاوية المحتوى الرئيسي -->
 <div class="main-container">
 
-  <h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
-  <hr>
+<h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
+<hr>
 
-  <!-- قائمة الخيارات الرئيسية -->
-  <div id="menu">
-    <h1 style="font-size: 16px; color: #ff7b00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Select Your Firmware</h1>
+<!-- قائمة الخيارات الرئيسية -->
+<div id="menu">
+  <h1 style="font-size: 16px; color: #ff7b00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Select Your Firmware</h1>
 
-    <button class="btn btn-multi" 
-            onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="location.replace('g2all/index.html')">
-      GoldHEN Multi FW
+  <button class="btn btn-multi" 
+          onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
+          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+          onclick="location.replace('g2all/index.html')">
+    GoldHEN Multi FW
+  </button>
+  <br>
+
+  <button class="btn" 
+          onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" 
+          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+          onclick="location.replace('505/index.html')">
+    5.05 FW v2.5
+  </button>
+
+  <a href="672goldhen/index.html">
+    <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+      6.72 FW GoldHEN
     </button>
-    <br>
+  </a>
 
-    <button class="btn" 
-            onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="location.replace('505/index.html')">
-      5.05 FW v2.5
+  <a href="672/index.html">
+    <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+      6.72 FW v3.0
     </button>
+  </a>
+  <br>
 
-    <a href="672goldhen/index.html">
-      <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-        6.72 FW GoldHEN
-      </button>
-    </a>
-
-    <a href="672/index.html">
-      <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-        6.72 FW v3.0
-      </button>
-    </a>
-    <br>
-
-    <a href="900goldhen/index.html">
-      <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-        9.00 FW GoldHEN
-      </button>
-    </a>
-
-    <a href="900v3/index.html">
-      <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-        9.00 FW v3.0
-      </button>
-    </a>
-    <br>
-
-    <button class="btn" 
-            onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="location.replace('restore/index.html')">
-      Restore Host
+  <a href="900goldhen/index.html">
+    <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+      9.00 FW GoldHEN
     </button>
-    <br>
+  </a>
 
-    <!-- === (تم إخفاء زر التبرع وجعله Junk هنا داخل الكود) === -->
-    <!--
-    <button class="btn btn-onln" 
-            onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="donations()" 
-            style="margin-top: 25px; margin-bottom: 15px; width: 100%; max-width: 420px;">
-      For Donations (Only in Cryptocurrencies)
+  <a href="900v3/index.html">
+    <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+      9.00 FW v3.0
     </button>
-    -->
+  </a>
+  <br>
 
-    <div style="font-size: 12px; color: #6c7793; margin-top: 20px; line-height: 1.5;">
-      Designed by: <a href="facebook.com/kenanz.belal" style="color: #ff7b00; margin: 0 4px;">@The Bunny (^w^)</a><br>
-      A special thanks to all the devs on the scene.
-    </div>
+  <button class="btn" 
+          onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" 
+          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+          onclick="location.replace('restore/index.html')">
+    Restore Host
+  </button>
+  <br>
+
+  <!-- === (تم إخفاء زر التبرع وجعله Junk هنا داخل الكود) === -->
+  <!--
+  <button class="btn btn-onln" 
+          onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" 
+          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+          onclick="donations()" 
+          style="margin-top: 25px; margin-bottom: 15px; width: 100%; max-width: 420px;">
+    For Donations (Only in Cryptocurrencies)
+  </button>
+  -->
+
+  <div style="font-size: 12px; color: #6c7793; margin-top: 20px; line-height: 1.5;">
+    Designed by: <a href="facebook.com/kenanz.belal" style="color: #ff7b00; margin: 0 4px;">@The Bunny (^w^)</a><br>
+    A special thanks to all the devs on the scene.
   </div>
+</div>
 
-</div> <!-- End of main container -->
+</div> <!-- نهاية حاوية المحتوى الرئيسي -->
 
 <!-- === (تم إخفاء قسم الكريبتو بالكامل وجعله Junk داخل الكود أيضاً) === -->
 <!--
@@ -157,11 +157,14 @@ function load_menu(){
   }
 
   function animate() {
+      // مسح نظيف وحاد للشاشة بدون أي تلطيش
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
       ctx.font = fontSize + 'px monospace';
 
       for (let p of particles) {
           p.y += p.speed;
+
           p.alpha += p.fading;
           if (p.alpha <= 0.1 || p.alpha >= 0.85) {
               p.fading = -p.fading;
@@ -171,7 +174,8 @@ function load_menu(){
               p.char = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
           }
 
-          ctx.fillStyle = 'rgba(0, 240, 255, ' + p.alpha + ')';
+          // **تم تحويل اللون إلى الأخضر الفسفوري الكلاسيكي الخاص بفيلم الماتريكس**
+          ctx.fillStyle = 'rgba(0, 255, 65, ' + p.alpha + ')';
           ctx.fillText(p.char, p.x, p.y);
 
           if (p.y > canvas.height) {
