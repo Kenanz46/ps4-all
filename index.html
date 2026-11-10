@@ -6,11 +6,11 @@
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* فرض شفافية الخلفية محلياً لتظهر خلفية الحبيبات الرقمية */
+  /* فرض شفافية الخلفية محلياً */
   body {
       background: transparent !important;
   }
-  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الخلفية الحية تماماً */
+  /* حاوية المحتوى لتكون فوق الخلفية الحية تماماً وبكل وضوح */
   .main-container {
       position: relative;
       z-index: 10;
@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<!-- خلفية الحبيبات الرقمية الحية (Live Wallpaper) -->
+<!-- خلفية رقمية حادة ونظيفة بدون تلطيخ -->
 <canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
 <!-- بداية حاوية المحتوى الرئيسي -->
@@ -139,52 +139,54 @@ function load_menu(){
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم
   const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
-  const fontSize = 14;
+  const fontSize = 13;
   
-  // إنشاء مصفوفة حبيبات عشوائية ومستقلة تماماً (كل حرف ماشي لحالو)
-  const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 3500);
+  // توزيع الحبيبات بطريقة أنظف وأوسع
+  const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 4500);
   const particles = [];
 
   for (let i = 0; i < particleCount; i++) {
       particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          speed: Math.random() * 1.5 + 0.5,
+          speed: Math.random() * 0.8 + 0.3,
           char: safeChars.charAt(Math.floor(Math.random() * safeChars.length)),
-          opacity: Math.random() * 0.8
+          alpha: Math.random(),
+          fading: Math.random() > 0.5 ? 0.01 : -0.01
       });
   }
 
   function animate() {
-      // خلفية شفافة لتعمل تأثير التلاشي السلس
-      ctx.fillStyle = 'rgba(8, 10, 16, 0.25)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // مسح كامل ونظيف للشاشة بدون أي تلطيخ (clearRect بدل fillRect الملطخ)
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       ctx.font = fontSize + 'px monospace';
 
       for (let p of particles) {
-          // تحريك الحرف نحو الأسفل بشكل مستقل
+          // حركة نزول بطيئة وهادئة
           p.y += p.speed;
 
-          // تبديل الحرف أحياناً لتعطي إيحاء الحيّز الرقمي المتغير
-          if (Math.random() < 0.03) {
+          // نبض وإضاءة تدريجية لكل حرف لحاله (Fade in / Fade out نقي جداً)
+          p.alpha += p.fading;
+          if (p.alpha <= 0.1 || p.alpha >= 0.85) {
+              p.fading = -p.fading;
+          }
+
+          // تبديل الحرف أحياناً بذكاء
+          if (Math.random() < 0.02) {
               p.char = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
           }
 
-          // تأثير التلاشي الذاتي حسب موقع الحرف (يظهر وسط الشاشة ويخفت كلما اقترب للأعلى أو الأسفل)
-          let distFromCenter = Math.abs(p.y - canvas.height / 2) / (canvas.height / 2);
-          let dynamicOpacity = Math.max(0, (1 - distFromCenter)) * 0.7;
-
-          ctx.fillStyle = 'rgba(0, 240, 255, ' + dynamicOpacity + ')';
+          // رسم الحرف بلون نيوني نقي وحاد تماماً بدون تشويش
+          ctx.fillStyle = 'rgba(0, 240, 255, ' + p.alpha + ')';
           ctx.fillText(p.char, p.x, p.y);
 
-          // إعادة تدوير الحرف من الأعلى عند نزوله بالكامل
+          // إعادة التدوير من الأعلى فور خروج الحرف
           if (p.y > canvas.height) {
-              p.y = -20;
+              p.y = -10;
               p.x = Math.random() * canvas.width;
-              p.speed = Math.random() * 1.5 + 0.5;
+              p.speed = Math.random() * 0.8 + 0.3;
           }
       }
 
