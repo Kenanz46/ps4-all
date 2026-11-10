@@ -5,84 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
+<style>
+  /* فرض شفافية خلفية البودي محلياً بدون تعديل style.css لحتى تظهر الماتريكس */
+  body {
+      background: transparent !important;
+  }
+  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الماتريكس تماماً */
+  .main-container {
+      position: relative;
+      z-index: 10;
+  }
+</style>
 </head>
 <body>
 
 <!-- خلفية الماتريكس المتلاشية للصفحة الرئيسية فقط -->
-<canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
+<canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
-<h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
-<hr>
+<!-- بداية حاوية المحتوى الرئيسي -->
+<div class="main-container">
 
-<!-- قائمة الخيارات الرئيسية -->
-<div id="menu">
-  <h1 style="font-size: 16px; color: #ff7b00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Select Your Firmware</h1>
+  <h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
+  <hr>
 
-  <button class="btn btn-multi" 
-          onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
-          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-          onclick="location.replace('g2all/index.html')">
-    GoldHEN Multi FW
-  </button>
-  <br>
+  <!-- قائمة الخيارات الرئيسية -->
+  <div id="menu">
+    <h1 style="font-size: 16px; color: #ff7b00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Select Your Firmware</h1>
 
-  <button class="btn" 
-          onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" 
-          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-          onclick="location.replace('505/index.html')">
-    5.05 FW v2.5
-  </button>
-
-  <a href="672goldhen/index.html">
-    <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-      6.72 FW GoldHEN
+    <button class="btn btn-multi" 
+            onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
+            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+            onclick="location.replace('g2all/index.html')">
+      GoldHEN Multi FW
     </button>
-  </a>
+    <br>
 
-  <a href="672/index.html">
-    <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-      6.72 FW v3.0
+    <button class="btn" 
+            onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" 
+            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+            onclick="location.replace('505/index.html')">
+      5.05 FW v2.5
     </button>
-  </a>
-  <br>
 
-  <a href="900goldhen/index.html">
-    <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-      9.00 FW GoldHEN
+    <a href="672goldhen/index.html">
+      <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW GoldHEN Host'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+        6.72 FW GoldHEN
+      </button>
+    </a>
+
+    <a href="672/index.html">
+      <button class="btn" onmouseover="msgs.innerHTML='PS4 6.72 FW Host v3.0'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+        6.72 FW v3.0
+      </button>
+    </a>
+    <br>
+
+    <a href="900goldhen/index.html">
+      <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW GoldHEN Host - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+        9.00 FW GoldHEN
+      </button>
+    </a>
+
+    <a href="900v3/index.html">
+      <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
+        9.00 FW v3.0
+      </button>
+    </a>
+    <br>
+
+    <button class="btn" 
+            onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" 
+            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+            onclick="location.replace('restore/index.html')">
+      Restore Host
     </button>
-  </a>
+    <br>
 
-  <a href="900v3/index.html">
-    <button class="btn" onmouseover="msgs.innerHTML='PS4 9.00 FW Host v3.0 - (FontFaceSet Webkit)'" onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'">
-      9.00 FW v3.0
+    <!-- === (تم إخفاء زر التبرع وجعله Junk هنا داخل الكود) === -->
+    <!--
+    <button class="btn btn-onln" 
+            onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" 
+            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+            onclick="donations()" 
+            style="margin-top: 25px; margin-bottom: 15px; width: 100%; max-width: 420px;">
+      For Donations (Only in Cryptocurrencies)
     </button>
-  </a>
-  <br>
+    -->
 
-  <button class="btn" 
-          onmouseover="msgs.innerHTML='Restore a Host to User&#8217;s Guide without using DNS'" 
-          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-          onclick="location.replace('restore/index.html')">
-    Restore Host
-  </button>
-  <br>
-
-  <!-- === (تم إخفاء زر التبرع وجعله Junk هنا داخل الكود) === -->
-  <!--
-  <button class="btn btn-onln" 
-          onmouseover="msgs.innerHTML='If you like my work you can support me with a donation.'" 
-          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-          onclick="donations()" 
-          style="margin-top: 25px; margin-bottom: 15px; width: 100%; max-width: 420px;">
-    For Donations (Only in Cryptocurrencies)
-  </button>
-  -->
-
-  <div style="font-size: 12px; color: #6c7793; margin-top: 20px; line-height: 1.5;">
-    Designed by: <a href="facebook.com/kenanz.belal" style="color: #ff7b00; margin: 0 4px;">@The Bunny (^w^)</a><br>
-    A special thanks to all the devs on the scene.
+    <div style="font-size: 12px; color: #6c7793; margin-top: 20px; line-height: 1.5;">
+      Designed by: <a href="facebook.com/kenanz.belal" style="color: #ff7b00; margin: 0 4px;">@The Bunny (^w^)</a><br>
+      A special thanks to all the devs on the scene.
+    </div>
   </div>
-</div>
+
+</div> <!-- نهاية حاوية المحتوى الرئيسي -->
 
 <!-- === (تم إخفاء قسم الكريبتو بالكامل وجعله Junk داخل الكود أيضاً) === -->
 <!--
@@ -123,7 +139,7 @@ function load_menu(){
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم (بدون أي يونيكود معقد)
+  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم
   const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
   const fontSize = 15;
   const columns = Math.floor(canvas.width / fontSize);
@@ -142,7 +158,7 @@ function load_menu(){
   }
 
   function animate() {
-      // خلفية شفافة لتعمل تأثير التلاشي (Trail)
+      // مسح الشاشة مع أثر تلاشي خلفية الماتريكس
       ctx.fillStyle = 'rgba(8, 10, 16, 0.18)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -151,7 +167,6 @@ function load_menu(){
       for (let i = 0; i < drops.length; i++) {
           let drop = drops[i];
           
-          // رسم أحرف الشريط الواحد مع تطبيق التلاشي التدريجي للشفافية
           for (let j = 0; j < drop.chars.length; j++) {
               let opacity = (drop.chars.length - j) / drop.chars.length;
               let charX = i * fontSize;
@@ -163,10 +178,8 @@ function load_menu(){
               }
           }
 
-          // تحريك الشريط نحو الأسفل
           drop.y += drop.speed;
 
-          // إعادة تدوير الشريط من الأعلى عندما يختفي بالأسفل
           if (drop.y - (drop.length * fontSize) > canvas.height) {
               drop.y = -20;
               drop.speed = Math.random() * 1.5 + 0.8;
