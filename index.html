@@ -6,11 +6,12 @@
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* فرض شفافية خلفية البودي محلياً بدون تعديل style.css لحتى تظهر الماتريكس */
+  /* فرض شفافية خلفية البودي محلياً لتظهر الماتريكس الحية */
   body {
       background: transparent !important;
+      overflow-x: hidden;
   }
-  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الماتريكس تماماً */
+  /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الخلفية الحية تماماً */
   .main-container {
       position: relative;
       z-index: 10;
@@ -19,7 +20,7 @@
 </head>
 <body>
 
-<!-- خلفية الماتريكس المتلاشية للصفحة الرئيسية فقط -->
+<!-- خلفية الماتريكس الحية والمنظمة للصفحة الرئيسية فقط -->
 <canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
 <!-- بداية حاوية المحتوى الرئيسي -->
@@ -139,54 +140,68 @@ function load_menu(){
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم
-  const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
-  const fontSize = 15;
+  // حروف وأرقام ورموز سيبرانية نظيفة وواضحة 100% للمتصفح
+  const safeChars = "0123456789ABCDEFHIJKLMNOPQRSTUVWXYZ<>[]{}/*#@$%+-=";
+  const fontSize = 16;
   const columns = Math.floor(canvas.width / fontSize);
   
   const drops = [];
   for (let i = 0; i < columns; i++) {
       drops[i] = {
           y: Math.random() * canvas.height,
-          speed: Math.random() * 1.5 + 0.8,
-          length: Math.floor(Math.random() * 12 + 6),
+          speed: Math.random() * 1.8 + 1, // سرعة انسيابية هادئة
           chars: []
       };
-      for (let j = 0; j < drops[i].length; j++) {
+      let length = Math.floor(Math.random() * 14 + 10);
+      for (let j = 0; j < length; j++) {
           drops[i].chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
       }
   }
 
   function animate() {
-      // مسح الشاشة مع أثر تلاشي خلفية الماتريكس
-      ctx.fillStyle = 'rgba(8, 10, 16, 0.18)';
+      // طبقة التلاشي الخلفية بتعطي تأثير مسار (Trail) ناعم جداً
+      ctx.fillStyle = 'rgba(5, 7, 12, 0.22)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.font = fontSize + 'px monospace';
+      ctx.font = 'bold ' + fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
           let drop = drops[i];
           
           for (let j = 0; j < drop.chars.length; j++) {
-              let opacity = (drop.chars.length - j) / drop.chars.length;
+              // جعل الحروف تتغير وتنبض بشكل حي ومتحرك أثناء النزول
+              if (Math.random() > 0.90) {
+                  drop.chars[j] = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
+              }
+
+              // التلاشي التدريجي للشفافية
+              let opacity = 1 - (j / drop.chars.length);
               let charX = i * fontSize;
               let charY = drop.y - (j * fontSize);
 
-              if (charY >= 0 && charY <= canvas.height) {
-                  ctx.fillStyle = 'rgba(0, 240, 255, ' + (opacity * 0.7) + ')';
+              if (charY >= -fontSize && charY <= canvas.height + fontSize) {
+                  if (j === 0) {
+                      // رأس الشريط يلمع بأبيض ناصع
+                      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                  } else {
+                      // بقية الشريط يتلاشى بلون نيون سيان فخم
+                      ctx.fillStyle = 'rgba(0, 240, 255, ' + (opacity * 0.7) + ')';
+                  }
                   ctx.fillText(drop.chars[j], charX, charY);
               }
           }
 
+          // تحريك الشريط للأسفل
           drop.y += drop.speed;
 
-          if (drop.y - (drop.length * fontSize) > canvas.height) {
-              drop.y = -20;
-              drop.speed = Math.random() * 1.5 + 0.8;
-              drop.length = Math.floor(Math.random() * 12 + 6);
+          // إعادة التدوير من الأعلى عندما يختفي بالأسفل
+          if (drop.y - (drop.chars.length * fontSize) > canvas.height) {
+              drop.y = -50;
+              drop.speed = Math.random() * 1.8 + 1;
+              let length = Math.floor(Math.random() * 14 + 10);
               drop.chars = [];
-              for (let j = 0; j < drop.length; j++) {
-                  drops[i].chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
+              for (let j = 0; j < length; j++) {
+                  drop.chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
               }
           }
       }
