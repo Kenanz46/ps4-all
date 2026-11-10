@@ -6,11 +6,11 @@
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* فرض شفافية الخلفية محلياً */
+  /* Force body background transparent locally without editing style.css */
   body {
       background: transparent !important;
   }
-  /* حاوية المحتوى لتكون فوق الخلفية الحية تماماً وبكل وضوح */
+  /* Main content container to sit above the live canvas background */
   .main-container {
       position: relative;
       z-index: 10;
@@ -19,10 +19,10 @@
 </head>
 <body>
 
-<!-- خلفية رقمية حادة ونظيفة بدون تلطيخ -->
+<!-- Live digital particle wallpaper canvas -->
 <canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
-<!-- بداية حاوية المحتوى الرئيسي -->
+<!-- Main content container -->
 <div class="main-container">
 
   <h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
@@ -98,7 +98,7 @@
     </div>
   </div>
 
-</div> <!-- نهاية حاوية المحتوى الرئيسي -->
+</div> <!-- End of main container -->
 
 <!-- === (تم إخفاء قسم الكريبتو بالكامل وجعله Junk داخل الكود أيضاً) === -->
 <!--
@@ -142,7 +142,6 @@ function load_menu(){
   const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
   const fontSize = 13;
   
-  // توزيع الحبيبات بطريقة أنظف وأوسع
   const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 4500);
   const particles = [];
 
@@ -158,31 +157,23 @@ function load_menu(){
   }
 
   function animate() {
-      // مسح كامل ونظيف للشاشة بدون أي تلطيخ (clearRect بدل fillRect الملطخ)
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
       ctx.font = fontSize + 'px monospace';
 
       for (let p of particles) {
-          // حركة نزول بطيئة وهادئة
           p.y += p.speed;
-
-          // نبض وإضاءة تدريجية لكل حرف لحاله (Fade in / Fade out نقي جداً)
           p.alpha += p.fading;
           if (p.alpha <= 0.1 || p.alpha >= 0.85) {
               p.fading = -p.fading;
           }
 
-          // تبديل الحرف أحياناً بذكاء
           if (Math.random() < 0.02) {
               p.char = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
           }
 
-          // رسم الحرف بلون نيوني نقي وحاد تماماً بدون تشويش
           ctx.fillStyle = 'rgba(0, 240, 255, ' + p.alpha + ')';
           ctx.fillText(p.char, p.x, p.y);
 
-          // إعادة التدوير من الأعلى فور خروج الحرف
           if (p.y > canvas.height) {
               p.y = -10;
               p.x = Math.random() * canvas.width;
