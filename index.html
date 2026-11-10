@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- خلفية الماتريكس المتلاشية للصفحة الرئيسية فقط -->
+<canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
+
 <h1 id="msgs">PS4 Exploit Host by The Bunny (^w^)</h1>
 <hr>
 
@@ -108,6 +111,78 @@ function load_menu(){
 }
 </script>
 -->
+
+<script>
+  const canvas = document.getElementById('matrixCanvas');
+  const ctx = canvas.getContext('2d');
+
+  function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم (بدون أي يونيكود معقد)
+  const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
+  const fontSize = 15;
+  const columns = Math.floor(canvas.width / fontSize);
+  
+  const drops = [];
+  for (let i = 0; i < columns; i++) {
+      drops[i] = {
+          y: Math.random() * canvas.height,
+          speed: Math.random() * 1.5 + 0.8,
+          length: Math.floor(Math.random() * 12 + 6),
+          chars: []
+      };
+      for (let j = 0; j < drops[i].length; j++) {
+          drops[i].chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
+      }
+  }
+
+  function animate() {
+      // خلفية شفافة لتعمل تأثير التلاشي (Trail)
+      ctx.fillStyle = 'rgba(8, 10, 16, 0.18)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+          let drop = drops[i];
+          
+          // رسم أحرف الشريط الواحد مع تطبيق التلاشي التدريجي للشفافية
+          for (let j = 0; j < drop.chars.length; j++) {
+              let opacity = (drop.chars.length - j) / drop.chars.length;
+              let charX = i * fontSize;
+              let charY = drop.y - (j * fontSize);
+
+              if (charY >= 0 && charY <= canvas.height) {
+                  ctx.fillStyle = 'rgba(0, 240, 255, ' + (opacity * 0.7) + ')';
+                  ctx.fillText(drop.chars[j], charX, charY);
+              }
+          }
+
+          // تحريك الشريط نحو الأسفل
+          drop.y += drop.speed;
+
+          // إعادة تدوير الشريط من الأعلى عندما يختفي بالأسفل
+          if (drop.y - (drop.length * fontSize) > canvas.height) {
+              drop.y = -20;
+              drop.speed = Math.random() * 1.5 + 0.8;
+              drop.length = Math.floor(Math.random() * 12 + 6);
+              drop.chars = [];
+              for (let j = 0; j < drop.length; j++) {
+                  drops[i].chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
+              }
+          }
+      }
+
+      requestAnimationFrame(animate);
+  }
+
+  requestAnimationFrame(animate);
+</script>
 
 </body>
 </html>
