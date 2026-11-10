@@ -6,10 +6,9 @@
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* فرض شفافية خلفية البودي محلياً لتظهر الماتريكس الحية */
+  /* فرض شفافية الخلفية محلياً لتظهر خلفية الحبيبات الرقمية */
   body {
       background: transparent !important;
-      overflow-x: hidden;
   }
   /* حاوية المحتوى لضمان ظهور الأزرار والنصوص فوق الخلفية الحية تماماً */
   .main-container {
@@ -20,7 +19,7 @@
 </head>
 <body>
 
-<!-- خلفية الماتريكس الحية والمنظمة للصفحة الرئيسية فقط -->
+<!-- خلفية الحبيبات الرقمية الحية (Live Wallpaper) -->
 <canvas id="matrixCanvas" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; pointer-events: none;"></canvas>
 
 <!-- بداية حاوية المحتوى الرئيسي -->
@@ -140,69 +139,52 @@ function load_menu(){
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
-  // حروف وأرقام ورموز سيبرانية نظيفة وواضحة 100% للمتصفح
-  const safeChars = "0123456789ABCDEFHIJKLMNOPQRSTUVWXYZ<>[]{}/*#@$%+-=";
-  const fontSize = 16;
-  const columns = Math.floor(canvas.width / fontSize);
+  // رموز آمنة ومضمونة 100% لمتصفح الـ PS4 القديم
+  const safeChars = "01ABCDEFXYZ<>[]{}/*#@$%+-=";
+  const fontSize = 14;
   
-  const drops = [];
-  for (let i = 0; i < columns; i++) {
-      drops[i] = {
+  // إنشاء مصفوفة حبيبات عشوائية ومستقلة تماماً (كل حرف ماشي لحالو)
+  const particleCount = Math.floor((window.innerWidth * window.innerHeight) / 3500);
+  const particles = [];
+
+  for (let i = 0; i < particleCount; i++) {
+      particles.push({
+          x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          speed: Math.random() * 1.8 + 1, // سرعة انسيابية هادئة
-          chars: []
-      };
-      let length = Math.floor(Math.random() * 14 + 10);
-      for (let j = 0; j < length; j++) {
-          drops[i].chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
-      }
+          speed: Math.random() * 1.5 + 0.5,
+          char: safeChars.charAt(Math.floor(Math.random() * safeChars.length)),
+          opacity: Math.random() * 0.8
+      });
   }
 
   function animate() {
-      // طبقة التلاشي الخلفية بتعطي تأثير مسار (Trail) ناعم جداً
-      ctx.fillStyle = 'rgba(5, 7, 12, 0.22)';
+      // خلفية شفافة لتعمل تأثير التلاشي السلس
+      ctx.fillStyle = 'rgba(8, 10, 16, 0.25)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.font = 'bold ' + fontSize + 'px monospace';
+      ctx.font = fontSize + 'px monospace';
 
-      for (let i = 0; i < drops.length; i++) {
-          let drop = drops[i];
-          
-          for (let j = 0; j < drop.chars.length; j++) {
-              // جعل الحروف تتغير وتنبض بشكل حي ومتحرك أثناء النزول
-              if (Math.random() > 0.90) {
-                  drop.chars[j] = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
-              }
+      for (let p of particles) {
+          // تحريك الحرف نحو الأسفل بشكل مستقل
+          p.y += p.speed;
 
-              // التلاشي التدريجي للشفافية
-              let opacity = 1 - (j / drop.chars.length);
-              let charX = i * fontSize;
-              let charY = drop.y - (j * fontSize);
-
-              if (charY >= -fontSize && charY <= canvas.height + fontSize) {
-                  if (j === 0) {
-                      // رأس الشريط يلمع بأبيض ناصع
-                      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
-                  } else {
-                      // بقية الشريط يتلاشى بلون نيون سيان فخم
-                      ctx.fillStyle = 'rgba(0, 240, 255, ' + (opacity * 0.7) + ')';
-                  }
-                  ctx.fillText(drop.chars[j], charX, charY);
-              }
+          // تبديل الحرف أحياناً لتعطي إيحاء الحيّز الرقمي المتغير
+          if (Math.random() < 0.03) {
+              p.char = safeChars.charAt(Math.floor(Math.random() * safeChars.length));
           }
 
-          // تحريك الشريط للأسفل
-          drop.y += drop.speed;
+          // تأثير التلاشي الذاتي حسب موقع الحرف (يظهر وسط الشاشة ويخفت كلما اقترب للأعلى أو الأسفل)
+          let distFromCenter = Math.abs(p.y - canvas.height / 2) / (canvas.height / 2);
+          let dynamicOpacity = Math.max(0, (1 - distFromCenter)) * 0.7;
 
-          // إعادة التدوير من الأعلى عندما يختفي بالأسفل
-          if (drop.y - (drop.chars.length * fontSize) > canvas.height) {
-              drop.y = -50;
-              drop.speed = Math.random() * 1.8 + 1;
-              let length = Math.floor(Math.random() * 14 + 10);
-              drop.chars = [];
-              for (let j = 0; j < length; j++) {
-                  drop.chars.push(safeChars.charAt(Math.floor(Math.random() * safeChars.length)));
-              }
+          ctx.fillStyle = 'rgba(0, 240, 255, ' + dynamicOpacity + ')';
+          ctx.fillText(p.char, p.x, p.y);
+
+          // إعادة تدوير الحرف من الأعلى عند نزوله بالكامل
+          if (p.y > canvas.height) {
+              p.y = -20;
+              p.x = Math.random() * canvas.width;
+              p.speed = Math.random() * 1.5 + 0.5;
           }
       }
 
