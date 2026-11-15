@@ -12,6 +12,7 @@ CACHE:
 ../../../includes/assets/icons/peeking-cat.svg
 ../../../includes/assets/icons/webkitty.svg
 ../../../includes/assets/icons/cat-face.svg
+../../../includes/css/gta6.css
 ../../../includes/css/colors/default.css
 ../../../includes/css/colors/vibrant.css
 ../../../includes/css/colors/catppuccino.css
