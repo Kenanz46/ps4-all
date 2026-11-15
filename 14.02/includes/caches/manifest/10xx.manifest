@@ -77,6 +77,7 @@ CACHE:
 ../../../includes/css/layouts/index.css
 ../../../includes/css/layouts/compact.css
 ../../../includes/css/colors/default.css
+../../../includes/css/gta6.css
 ../../../includes/css/colors/vibrant.css
 ../../../includes/css/colors/catppuccino.css
 ../../../includes/assets/icons/cat-paw-btns.svg
