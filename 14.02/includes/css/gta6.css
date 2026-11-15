@@ -2,7 +2,7 @@
    GTA VI EXTRAS — loaded AFTER layout + colors
    Contains: scanline overlay, sun disc, chrome wordmark,
    glitch intro animation, palm silhouette.
-   Everything here is GPU-safe (transform + opacity).
+   Everything here is GPU-safe (transform / opacity).
    ========================================================= */
 
 /* ---------- 1) Scanline + subtle grain overlay ---------- */
@@ -27,14 +27,14 @@
     content: "";
     position: absolute;
     left: 50%;
-    top: 18%;
+    top: 12% !important; /* Moved up so the logo sits in the middle */
     width: 240px;
     height: 240px;
     margin-left: -120px;
     border-radius: 50%;
     background: linear-gradient(180deg, #FFE08A 0%, #FF8C42 55%, #FF4E7A 100%);
     box-shadow: 0 0 100px 25px rgba(255, 78, 122, 0.35);
-    z-index: 0;
+    z-index: -1 !important; /* Sends the sun BEHIND the PS logo and text */
     animation: gta6-sun-breathe 6s ease-in-out infinite;
     pointer-events: none;
     will-change: transform, opacity;
@@ -46,7 +46,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 34%;
+    top: 26% !important; /* Aligned with the new sun position */
     height: 1px;
     background: linear-gradient(90deg,
         transparent 0%,
@@ -54,10 +54,10 @@
         transparent 100%);
     box-shadow: 0 0 20px 2px rgba(0, 229, 255, 0.5);
     pointer-events: none;
-    z-index: 0;
+    z-index: -1 !important;
 }
 
-/* ---------- 3) Chrome wordmark (add <h1 class="gta6-wordmark"> in HTML) ---------- */
+/* ---------- 3) Chrome wordmark ---------- */
 .gta6-wordmark {
     position: relative;
     z-index: 2;
@@ -72,11 +72,10 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    /* Text-shadow doesn't work with background-clip:text, use filter-free glow */
     filter: drop-shadow(0 0 12px rgba(255, 78, 122, 0.4));
 }
 
-/* Glitch layers — created with pseudo-elements, no extra DOM */
+/* Glitch layers */
 .gta6-wordmark::before,
 .gta6-wordmark::after {
     content: attr(data-text);
@@ -110,7 +109,7 @@
 #initial-screen > *:nth-child(4) { animation-delay: 0.25s; }
 #initial-screen > *:nth-child(5) { animation-delay: 0.35s; }
 
-/* ---------- 5) Palm-tree silhouette (optional, inline SVG in HTML) ---------- */
+/* ---------- 5) Palm-tree silhouette (optional) ---------- */
 .gta6-palm {
     position: absolute;
     bottom: 0;
@@ -139,14 +138,36 @@
 
 /* =========================================================
    Hide the now-obsolete theme/layout switcher.
-   Only ONE theme file pair exists (index + default), so
-   clicking those radios would 404. The DOM block stays in
-   index.html because loadSettings() still queries it — we
-   just make it invisible.
    ========================================================= */
 #chooseTheme {
     display: none !important;
 }
+
+/* =========================================================
+   LAYOUT FIXES — Aligning the Hero Elements
+   ========================================================= */
+
+/* Fix the header spacing */
+#initial-screen header {
+    top: 2rem !important;
+    left: 2rem !important;
+    right: 2rem !important;
+    width: auto !important;
+}
+
+/* Lift the scroll down arrow up so it doesn't hit the Bunny tag */
+#scrollDown {
+    bottom: 6rem !important;
+}
+
+/* Make the platform warning (Windows/PC) look like a cool cyber-warning */
+#PS4FW {
+    color: #FF4E7A !important;
+    font-weight: 600 !important;
+    text-shadow: 0 0 10px rgba(255, 78, 122, 0.5) !important;
+    margin-bottom: 2rem !important;
+}
+
 
 /* =============== KEYFRAMES =============== */
 @keyframes gta6-sun-breathe {
@@ -185,17 +206,15 @@
 
 /* ============================================================
    THE BUNNY SIGNATURE TAG  — 14.02 credit
-   Neon "license plate" styled marquee.
-   Appears directly below the HEN selector on the intro screen.
-   GPU-safe: only transforms + box-shadow + text-shadow animate.
    ============================================================ */
 .gta6-bunny-tag {
     position: relative;
-    z-index: 2;
+    z-index: 10 !important;
     display: inline-flex;
     align-items: center;
     gap: 0.6em;
     margin-top: 2rem;
+    margin-bottom: 2rem !important;
     padding: 0.55rem 1.4rem;
     border-radius: 999px;
     background: rgba(13, 6, 24, 0.72);
