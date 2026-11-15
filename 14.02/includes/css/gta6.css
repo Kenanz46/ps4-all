@@ -137,6 +137,17 @@
         0 30px 60px -20px rgba(255, 78, 122, 0.35);
 }
 
+/* =========================================================
+   Hide the now-obsolete theme/layout switcher.
+   Only ONE theme file pair exists (index + default), so
+   clicking those radios would 404. The DOM block stays in
+   index.html because loadSettings() still queries it — we
+   just make it invisible.
+   ========================================================= */
+#chooseTheme {
+    display: none !important;
+}
+
 /* =============== KEYFRAMES =============== */
 @keyframes gta6-sun-breathe {
     0%, 100% { opacity: 0.85; transform: scale(1); }
@@ -172,12 +183,121 @@
                     clip-path: inset(20% 0 60% 0); }
 }
 
+/* ============================================================
+   THE BUNNY SIGNATURE TAG  — 14.02 credit
+   Neon "license plate" styled marquee.
+   Appears directly below the HEN selector on the intro screen.
+   GPU-safe: only transforms + box-shadow + text-shadow animate.
+   ============================================================ */
+.gta6-bunny-tag {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    margin-top: 2rem;
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    background: rgba(13, 6, 24, 0.72);
+    border: 1px solid rgba(255, 78, 122, 0.55);
+    box-shadow:
+        0 0 14px rgba(255, 78, 122, 0.45),
+        0 0 40px rgba(255, 140, 66, 0.20),
+        inset 0 0 12px rgba(0, 229, 255, 0.10);
+    font-size: 0.95rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: gta6-bunny-glow 4s ease-in-out infinite;
+    will-change: box-shadow;
+}
+
+.gta6-bunny-prefix {
+    color: #FF8C42;
+    font-size: 0.9em;
+    animation: gta6-bunny-spin 6s linear infinite;
+    will-change: transform;
+    display: inline-block;
+}
+
+.gta6-bunny-text {
+    color: #F5E6D3;
+    font-weight: 600;
+}
+
+.gta6-bunny-ver {
+    color: #00E5FF;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.85);
+}
+
+.gta6-bunny-author {
+    background: linear-gradient(90deg, #FF4E7A 0%, #FF8C42 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.gta6-bunny-emote {
+    color: #E6399B;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(230, 57, 155, 0.75);
+    display: inline-block;
+    animation: gta6-bunny-bounce 2.2s ease-in-out infinite;
+    will-change: transform;
+}
+
+@keyframes gta6-bunny-glow {
+    0%, 100% {
+        box-shadow:
+            0 0 14px rgba(255, 78, 122, 0.45),
+            0 0 40px rgba(255, 140, 66, 0.20),
+            inset 0 0 12px rgba(0, 229, 255, 0.10);
+    }
+    50% {
+        box-shadow:
+            0 0 22px rgba(255, 78, 122, 0.75),
+            0 0 60px rgba(255, 140, 66, 0.35),
+            inset 0 0 18px rgba(0, 229, 255, 0.18);
+    }
+}
+
+@keyframes gta6-bunny-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes gta6-bunny-bounce {
+    0%, 100% { transform: translateY(0)    scale(1); }
+    50%      { transform: translateY(-3px) scale(1.06); }
+}
+
+/* Responsive: allow wrap on very narrow PS4 viewports */
+@media (max-width: 480px) {
+    .gta6-bunny-tag {
+        white-space: normal;
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        max-width: 92vw;
+    }
+}
+
+/* =========================================================
+   Reduced-motion: silence all GTA VI + Bunny animations
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
     #initial-screen::before,
     .gta6-palm,
     .gta6-wordmark::before,
     .gta6-wordmark::after,
-    #initial-screen > *:not(header) {
+    #initial-screen > *:not(header),
+    .gta6-bunny-tag,
+    .gta6-bunny-prefix,
+    .gta6-bunny-emote {
         animation: none !important;
     }
 }
