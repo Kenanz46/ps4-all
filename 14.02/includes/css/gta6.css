@@ -1,0 +1,183 @@
+/* =========================================================
+   GTA VI EXTRAS — loaded AFTER layout + colors
+   Contains: scanline overlay, sun disc, chrome wordmark,
+   glitch intro animation, palm silhouette.
+   Everything here is GPU-safe (transform + opacity).
+   ========================================================= */
+
+/* ---------- 1) Scanline + subtle grain overlay ---------- */
+.gta6-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.08) 0px,
+            rgba(0, 0, 0, 0.08) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+    opacity: 0.55;
+}
+
+/* ---------- 2) Sunset sun disc on the intro screen ---------- */
+#initial-screen::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 18%;
+    width: 240px;
+    height: 240px;
+    margin-left: -120px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #FFE08A 0%, #FF8C42 55%, #FF4E7A 100%);
+    box-shadow: 0 0 100px 25px rgba(255, 78, 122, 0.35);
+    z-index: 0;
+    animation: gta6-sun-breathe 6s ease-in-out infinite;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+/* Ground line / horizon under the sun */
+#initial-screen::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 34%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 229, 255, 0.7) 50%,
+        transparent 100%);
+    box-shadow: 0 0 20px 2px rgba(0, 229, 255, 0.5);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ---------- 3) Chrome wordmark (add <h1 class="gta6-wordmark"> in HTML) ---------- */
+.gta6-wordmark {
+    position: relative;
+    z-index: 2;
+    font-size: 2.4rem;
+    letter-spacing: 0.35em;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 1.25rem 0 0 0;
+    background: linear-gradient(180deg, #FFF6E0 0%, #FF8C42 45%, #E6399B 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    /* Text-shadow doesn't work with background-clip:text, use filter-free glow */
+    filter: drop-shadow(0 0 12px rgba(255, 78, 122, 0.4));
+}
+
+/* Glitch layers — created with pseudo-elements, no extra DOM */
+.gta6-wordmark::before,
+.gta6-wordmark::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    pointer-events: none;
+    opacity: 0.75;
+}
+.gta6-wordmark::before {
+    animation: gta6-glitch-cyan 4s infinite steps(1);
+    transform: translateX(-2px);
+}
+.gta6-wordmark::after {
+    animation: gta6-glitch-pink 4s infinite steps(1);
+    transform: translateX(2px);
+}
+
+/* ---------- 4) Intro fade + scale ---------- */
+#initial-screen > *:not(header) {
+    animation: gta6-fade-in 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+#initial-screen > *:nth-child(2) { animation-delay: 0.05s; }
+#initial-screen > *:nth-child(3) { animation-delay: 0.15s; }
+#initial-screen > *:nth-child(4) { animation-delay: 0.25s; }
+#initial-screen > *:nth-child(5) { animation-delay: 0.35s; }
+
+/* ---------- 5) Palm-tree silhouette (optional, inline SVG in HTML) ---------- */
+.gta6-palm {
+    position: absolute;
+    bottom: 0;
+    right: 4%;
+    width: 130px;
+    height: auto;
+    opacity: 0.22;
+    z-index: 0;
+    pointer-events: none;
+    fill: #0D0618;
+    animation: gta6-sway 8s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+    will-change: transform;
+}
+
+/* ---------- 6) Popups get a neon edge ---------- */
+#about-popup,
+#settings-popup,
+#theme-popup,
+#choose-fanThreshold {
+    border: 1px solid rgba(255, 78, 122, 0.30);
+    box-shadow:
+        0 0 0 1px rgba(0, 229, 255, 0.08),
+        0 30px 60px -20px rgba(255, 78, 122, 0.35);
+}
+
+/* =============== KEYFRAMES =============== */
+@keyframes gta6-sun-breathe {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1.00; transform: scale(1.04); }
+}
+
+@keyframes gta6-sway {
+    0%   { transform: rotate(-1.5deg); }
+    100% { transform: rotate(1.5deg); }
+}
+
+@keyframes gta6-fade-in {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+@keyframes gta6-glitch-cyan {
+    0%, 92%, 100% { transform: translateX(-2px); opacity: 0; }
+    93%           { transform: translateX(-4px); opacity: 0.6;
+                    clip-path: inset(20% 0 60% 0); }
+    95%           { transform: translateX(2px);  opacity: 0.5;
+                    clip-path: inset(50% 0 30% 0); }
+    97%           { transform: translateX(-3px); opacity: 0.4;
+                    clip-path: inset(10% 0 70% 0); }
+}
+@keyframes gta6-glitch-pink {
+    0%, 92%, 100% { transform: translateX(2px); opacity: 0; }
+    93%           { transform: translateX(4px); opacity: 0.5;
+                    clip-path: inset(40% 0 40% 0); }
+    95%           { transform: translateX(-2px); opacity: 0.5;
+                    clip-path: inset(70% 0 10% 0); }
+    97%           { transform: translateX(3px); opacity: 0.4;
+                    clip-path: inset(20% 0 60% 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #initial-screen::before,
+    .gta6-palm,
+    .gta6-wordmark::before,
+    .gta6-wordmark::after,
+    #initial-screen > *:not(header) {
+        animation: none !important;
+    }
+}
