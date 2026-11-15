@@ -14,7 +14,12 @@ body {
     color: #F5E6D3;
 }
 
-/* Full-viewport sunset background — painted once, no animation cost */
+/* Full-viewport sunset background — painted once, no animation cost.
+   EDIT: background-attachment:fixed is kept for desktop, but on PS4's
+   old WebKit it can cause scroll jank with large radial gradients.
+   The fallback below drops it to scroll on very narrow viewports
+   (PS4 browser is roughly 980–1280 CSS px wide, so this rarely
+   triggers on PS4 — but protects low-end kiosk/phone users). */
 html, body {
     background-color: #0D0618;
     background-image:
@@ -234,7 +239,11 @@ section { min-height: 100vh; }
    GTA-VI EXTRAS baked in
    ============================================================= */
 
-/* Neon glow on the PS button */
+/* Neon glow on the PS button.
+   EDIT: will-change kept to transform only — box-shadow is NOT a
+   compositor-only property on old WebKit and hinting it can cause
+   the layer to be re-rastered on every pulse frame, hurting FPS on
+   PS4. Animating box-shadow still works; we just don't hint it. */
 #ps-logo-container {
     background: rgba(255, 78, 122, 0.06) !important;
     border: 1px solid rgba(255, 78, 122, 0.55);
@@ -242,7 +251,7 @@ section { min-height: 100vh; }
         0 0 20px rgba(255, 78, 122, 0.55),
         0 0 60px rgba(255, 140, 66, 0.30);
     animation: gta6-pulse 3s ease-in-out infinite;
-    will-change: transform, box-shadow;
+    will-change: transform;
 }
 #ps-logo-container:hover {
     background: rgba(255, 78, 122, 0.12) !important;
@@ -298,6 +307,15 @@ section { min-height: 100vh; }
     }
 }
 
+/* EDIT: gradient-scroll fallback for very narrow viewports where
+   background-attachment:fixed can stutter on old WebKit. */
+@media (max-width: 480px) {
+    html, body {
+        background-attachment: scroll;
+    }
+}
+
+/* EDIT: accessibility — kill the PS pulse for reduced-motion users. */
 @media (prefers-reduced-motion: reduce) {
     #ps-logo-container { animation: none !important; }
 }
