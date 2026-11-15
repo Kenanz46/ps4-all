@@ -28,6 +28,8 @@
     <link rel="icon" href="./includes/assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" id="main-stylesheet" href="">
     <link rel="stylesheet" id="color-stylesheet" href="">
+    <!-- GTA VI extras: overlay, sun disc, wordmark, neon accents -->
+    <link rel="stylesheet" href="./includes/css/gta6.css">
     <script>
         // Prevent "Theme Flash" by applying the href before the body renders
         var savedTheme = localStorage.getItem('theme') || "index";
@@ -61,6 +63,9 @@
 </head>
 
 <body class="bg-gray-900 text-white">
+    <!-- GTA VI scanline + grain overlay (pointer-events: none) -->
+    <div class="gta6-overlay"></div>
+
     <main class="mainContainer">
         <section id="initial-screen" class="relative flex flex-col items-center justify-center min-h-screen p-6 transition-opacity duration-700
             opacity-100">
@@ -106,6 +111,9 @@
                     Update Cache
                 </button>
             </header>
+
+            <!-- GTA VI chrome wordmark (glitch layers created via ::before / ::after) -->
+            <h1 class="gta6-wordmark" data-text="WEBKITTY">WEBKITTY</h1>
 
             <!-- PS Button -->
             <button id="pslogo">
@@ -161,6 +169,16 @@
                         <span class="text-lg font-semibold text-white/90 select-none">nexHEN<br>Experimental</span>
                     </label>
                 </div>
+            </div>
+
+            <!-- ============================================================
+                 GTA VI SIGNATURE TAG — 14.02 credit by The Bunny
+                 Neon "license plate" style credit visible on the intro
+                 ============================================================ -->
+            <div class="gta6-bunny-tag" aria-label="PS4 Exploit for 14.02 by The Bunny">
+                <span class="gta6-bunny-prefix">★</span>
+                <span class="gta6-bunny-text">PS4 Exploit for&nbsp;<span class="gta6-bunny-ver">14.02</span>&nbsp;by&nbsp;<span class="gta6-bunny-author">The Bunny</span>&nbsp;<span class="gta6-bunny-emote">(^w^)</span></span>
+                <span class="gta6-bunny-prefix">★</span>
             </div>
 
             <!-- Scroll Down Icon -->
@@ -664,6 +682,12 @@
                     </label>
                 </div>
             </div>
+            <!--
+                Theme & Layout selectors kept in the DOM (so loadSettings() can
+                still find them) but visually hidden via #chooseTheme rule in
+                gta6.css. Only ONE theme/layout file pair exists now, so
+                switching them would 404. Do not remove the .gta6.css rule.
+            -->
             <div id="chooseTheme" class="mb-4 flex">
                 <h3 class="text-lg font-semibold mb-2" id="layout">Layout</h3>
                 <div class="radio-group space-y-2 flex flex-wrap flex-row" id="layouts">
