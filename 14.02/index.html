@@ -79,4 +79,67 @@
                         <div class="p-2 rounded bg-gray-700/50" id="custom" role="tabpanel" aria-labelledby="custom-tab">
                             <p class="text-sm text-white/80 mb-2" id="customPayloadUpload">Upload a custom payload (.bin / .elf)</p>
                             <div class="flex gap-2" style="display: flex; gap: 8px;">
-                                <input type="file" id="customPayload
+                                <input type="file" id="customPayloadInput" class="bg-gray-700 p-1 rounded flex-grow text-sm text-white" accept=".bin,.elf" style="background:#374151; color:#fff; border:none; padding:4px;">
+                                <button id="sendCustomPayloadBtn" onclick="Loadpayloads('custom')" class="bg-blue-600 px-3 py-1 rounded text-sm font-semibold cursor-pointer" style="background:#2563eb; color:#fff; border:none; border-radius:4px;">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- عنصر مخفي تطلبه السكريبتات لضبط الفيرجين تلقائياً -->
+                <select id="ps4FwSelect" style="display: none;">
+                    <option value="14.02" selected>14.02</option>
+                </select>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- السكريبتات الأساسية المسؤولة عن تشغيل الثغرة وجلب البايلودز (مطلوبة 100% للعمل) -->
+    <script>
+        window.targetFirmware = "14.02";
+        
+        window.onerror = function (msg, url, lineno, colno, error) {
+            var errorConsole = document.getElementById('console');
+            if (errorConsole) {
+                errorConsole.textContent += '\n[Error]: ' + msg;
+            }
+            return true;
+        };
+    </script>
+    <script src="./includes/js/storage.js"></script>
+    <script src="./includes/js/testMode.js"></script>
+    <script src="./includes/js/firmware.js"></script>
+    <script src="./includes/js/utilities.js"></script>
+    <script src="./includes/js/HENs.js"></script>
+    <script src="./includes/js/checkFw.js"></script>
+    
+    <script id="main-logic-loader">
+        (function () {
+            var isModern = 'noModule' in document.createElement('script');
+            var scriptPath = isModern ? './includes/js/jailbreak.js' : './includes/js/jailbreak-legacy.js';
+            document.write('<script src="' + scriptPath + '"><\/script>');
+        })();
+    </script>
+    
+    <script src="./includes/js/initial.js"></script>
+    <script src="./includes/js/cache.js"></script>
+    <script src="./includes/js/deliverPayload.js"></script>
+    <script src="./includes/js/payloadsList.js"></script>
+    <script src="./includes/js/design.js"></script>
+    <script src="./includes/js/language.js"></script>
+    <script src="./includes/js/autoJbRetry.js"></script>
+    <script src="./includes/js/events.js"></script>
+    <script src="./includes/js/payloadsHandler.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.abortLoading) return;
+            if (typeof loadSettings === 'function') {
+                loadSettings();
+            }
+        });
+    </script>
+</body>
+
+</html>
