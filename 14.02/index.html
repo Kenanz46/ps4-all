@@ -4,343 +4,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <title>WebKitty - FW 14.02 Host</title>
-    <meta name="description" content="WebKitty is a dedicated, feature-rich PS4 exploit host for Firmware 14.02." />
-    <meta name="author" content="ArabPixel / The Bunny">
-    <meta name="keywords" content="PS4, PlayStation 4, webkit exploit, jailbreak, 14.02, slopkit, slopkit-afterglow">
-
-    <!-- Facebook / Discord / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="WebKitty - FW 14.02">
-    <meta property="og:description" content="WebKitty dedicated exploit host for PS4 Firmware 14.02.">
-    <meta property="og:image" content="./includes/assets/icons/webkitty.svg">
-
-    <!-- Twitter / X -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="WebKitty - FW 14.02">
-    <meta name="twitter:description" content="WebKitty dedicated exploit host for PS4 Firmware 14.02.">
-    
-    <link rel="icon" href="./includes/assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" id="main-stylesheet" href="">
-    <link rel="stylesheet" id="color-stylesheet" href="">
-    <script>
-        // Prevent "Theme Flash" by applying the href before the body renders
-        var savedTheme = localStorage.getItem('theme') || "index";
-        var savedColor = localStorage.getItem('color') || "default";
-        if (savedTheme) {
-            document.getElementById('main-stylesheet').setAttribute('href', './includes/css/layouts/' + savedTheme + '.css');
+    <title>PS4 Exploit Host - FW 14.02</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* فرض تناسق الألوان وسرعة الواجهة مع إبقاء عناصر البايلودز والكونسول بكامل فعاليتها */
+        body {
+            background-color: #111827;
+            color: #ffffff;
+            font-family: monospace;
+            margin: 0;
+            padding: 20px;
         }
-        if (savedColor) {
-            document.getElementById('color-stylesheet').setAttribute('href', './includes/css/colors/' + savedColor + '.css');
+        .main-container {
+            max-width: 1100px;
+            margin: 0 auto;
         }
-        var rtlLangs = ["ar", "fa"];
-        if (rtlLangs.indexOf(localStorage.getItem('language')) !== -1)
-            document.dir = "rtl";
-        else
-            document.dir = "ltr";
-
-        // redirect to http request
-        var goToHttps = localStorage.getItem("dontHTTPS") != "1";
-        var isThisPS4 = navigator.userAgent.indexOf("PlayStation 4") !== -1;
-        var isLocalServer = /^(127\.|192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/.test(window.location.hostname);
-        var isCurrentHTTPS = window.location.protocol === 'https:';
-        if (isThisPS4 && goToHttps && !isLocalServer && isCurrentHTTPS){
-            if (confirm("You are currently using HTTPS, which prevents loading payloads through a bin/elf loader servers, switch to http instead? (recommended)")){
-                window.abortLoading = true;
-                window.location.href = window.location.href.replace('https:', 'http:');
-            } else{
-                localStorage.setItem("dontHTTPS", "1");
-            }
-        }
-    </script>
+    </style>
 </head>
 
 <body class="bg-gray-900 text-white">
-    <main class="mainContainer">
-        <section id="initial-screen" class="relative flex flex-col items-center justify-center min-h-screen p-6 transition-opacity duration-700 opacity-100">
-            <!-- Header Buttons -->
-            <header class="absolute top-6 left-6 flex space-x-3 rtl:space-x-reverse z-10">
-                <div>
-                    <button onclick="settingsPopup()"
-                        class="settings-btn p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white/80 hover:text-white"
-                        title="Settings">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                            class="bi bi-gear" viewBox="0 0 16 16">
-                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
-                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
-                        </svg>
-                    </button>
-                    <button onclick="aboutPopup()"
-                        class="about-btn p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white/80 hover:text-white"
-                        title="About">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 512 512">
-                            <path d="M256,56C145.72,56,56,145.72,56,256s89.72,200,200,200,200-89.72,200-200S366.28,56,256,56Zm0,82a26,26,0,1,1-26,26A26,26,0,0,1,256,138Zm64,226H200V332h44V244H212V212h64V332h44Z" />
-                        </svg>
-                    </button>
-                    <button onclick="themePopup()"
-                        class="theme-btn h-10 p-2 inline-flex items-center justify-center rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white/80 hover:text-white"
-                        title="Theme Customization">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
-                            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
-                            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
-                            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-                            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.92 0 1.7-.71 1.7-1.63 0-.44-.17-.85-.45-1.16-.27-.3-.43-.71-.43-1.15 0-.92.75-1.66 1.67-1.66h2.24c2.8 0 5.07-2.27 5.07-5.07 0-5.25-4.38-9.33-9.7-9.33z" />
-                        </svg>
-                    </button>
+    <main class="main-container">
+        
+        <h1 style="text-align: center; color: #00ff41; margin-bottom: 25px; font-size: 22px; text-transform: uppercase; letter-spacing: 2px;">
+            PS4 Exploit Host - Firmware 14.02 (Dedicated)
+        </h1>
+
+        <!-- شبكة عرض الكونسول والبايلودز جنباً إلى جنب -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;" class="grid md:grid-cols-2">
+            
+            <!-- لوحة حالة الثغرة والـ Console -->
+            <div id="exploit-status-panel" class="bg-gray-800 p-6 rounded-lg flex flex-col h-full" style="background: #1f2937; padding: 20px; border-radius: 8px; border: 1px solid #374151;">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold" id="state" style="font-size: 18px; color: #00ff41;">Exploit Status (14.02)</h2>
+                    <button id="successRate" class="text-sm cursor-pointer" onclick="clearStats()" style="background: none; border: none; color: #9ca3af;">Success rate</button>
                 </div>
-                <button id="updateCache"
-                    class="p-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-white/80 hover:text-white">
-                    Update Cache
-                </button>
-            </header>
-
-            <!-- PS Button -->
-            <button id="pslogo">
-                <div id="ps-logo-container"
-                    class="relative group cursor-pointer flex flex-col items-center justify-center p-8 rounded-full bg-white/5 hover:bg-white/10 transition-all duration-300 transform hover:scale-102">
-                    <svg id="ps-logo" class="w-32 h-32 transition-all duration-500 ease-in-out" viewBox="0 0 32 32"
-                        fill="#00ff41" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_iconCarrier">
-                            <path d="M0.69116 21.9548C-0.506476 22.7935 -0.284724 24.2384 2.44769 25.1419C5.18011 26.0455 8.35603 26.2323 11.1505 25.729C11.0707 25.729 11.3102 25.729 11.1505 25.729V22.8774L8.43588 23.8C7.39792 24.1355 6.35997 24.2194 5.32202 23.9677C4.5236 23.7161 4.68328 23.2129 5.64139 22.7935L11.1505 20.7806V17.6774L3.48565 20.4452C2.52754 20.7806 1.56943 21.2839 0.69116 21.9548ZM19.2146 9.37419V17.5097C22.4881 19.1871 25.0431 17.5097 25.0431 13.1484C25.0431 8.70323 23.5261 6.69032 19.1348 5.09677C16.8193 4.25806 14.4241 3.50323 12.0288 3V27.2387L17.6178 29V8.61935C17.6178 7.69677 17.6178 7.02581 18.2565 7.27742C19.1348 7.52903 19.2146 8.45161 19.2146 9.37419ZM29.5941 20.0258C27.2787 19.1871 24.8036 18.8516 22.4083 19.1032C21.0779 19.1906 19.8294 19.5869 18.5759 20.0258V23.2968L23.7656 21.2839C24.8036 20.9484 25.8415 20.8645 26.8795 21.1161C27.6779 21.3677 27.5182 21.871 26.5601 22.2903L18.5759 25.3935V28.5806L29.5941 24.3032C30.3925 23.9677 31.1111 23.5484 31.7499 22.8774C32.3088 22.0387 32.0692 20.8645 29.5941 20.0258Z">
-                            </path>
-                        </g>
-                    </svg>
+                
+                <!-- شاشة الـ Debug Console الحية -->
+                <div id="DebugConsole" class="bg-black/50 p-4 rounded-lg overflow-y-auto mb-4 text-xs font-mono" style="background: #000; padding: 12px; border-radius: 6px; height: 180px; overflow-y: auto; color: #00ff41; border: 1px solid #374151;" dir="ltr">
+                    <pre id='console'>[+] Waiting to initialize 14.02 exploit chain...</pre>
                 </div>
-            </button>
-            <h3 class="text-white/70 text-lg mt-4" id="click-to-start-text"></h3>
-            <button onclick="clearInterval(autoJbInterval);"
-                class="hidden mt-2 bg-red-600 hover:bg-red-700 p-3 rounded font-semibold transition-colors"
-                id="stopAutoJb">
-                Stop Auto Jailbreak
-            </button>
 
-            <!-- Compatibility message -->
-            <p id="PS4FW" class="text-white/70 text-lg mt-4 mb-6">Target Firmware: 14.02</p>
-
-            <!-- Jailbreak flavor options -->
-            <div id="choosejb-initial" class="bg-gray-800 p-6 rounded-lg shadow-xl text-center">
-                <h3 class="text-xl font-semibold mb-4">Choose your HEN flavor</h3>
-                <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 rtl:gap-4 sm:rtl:gap-8">
-                    <label class="flex items-center px-4 py-2 rounded-lg bg-gray-700/60 hover:bg-gray-700 transition-colors cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500 w-full sm:w-auto mb-2 sm:mb-0"
-                        id="goldhen-label-initial">
-                        <input type="radio" name="hen" value="GoldHEN" onchange="saveJbFlavor(this.name, this.value)"
-                            class="accent-blue-500 w-5 h-5 ml-3 focus:ring-2 focus:ring-blue-400" checked>
-                        <span class="text-lg font-semibold text-white/90 select-none">GoldHEN</span>
+                <!-- خيار الـ HEN وزر التشغيل -->
+                <div id="henSelection" class="flex items-center justify-between mt-auto">
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="hen2" value="GoldHEN" checked onchange="saveJbFlavor(this.name, this.value)">
+                        <span class="font-semibold">GoldHEN</span>
                     </label>
+                    <button id="exploitRun" class="bg-blue-600 hover:bg-blue-700 p-3 rounded-full transition-colors cursor-pointer" style="background: #2563eb; border: none; padding: 10px 20px; border-radius: 6px; color: #fff; font-weight: bold;">
+                        Run Exploit
+                    </button>
                 </div>
             </div>
 
-            <!-- Scroll Down Icon -->
-            <button id="scrollDown" class="absolute bottom-10 cursor-pointer"
-                onclick="ui.exploitScreen.scrollIntoView({block: 'end'});">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="currentColor" viewBox="0 0 512 512">
-                    <polyline points="112 184 256 328 400 184"></polyline>
-                </svg>
-            </button>
-        </section>
-
-        <!-- Exploit section -->
-        <section id="exploit-main-screen" class="flex w-full bg-gray-900 text-white transition-opacity duration-700">
-            <div id="exploitContainer" class="grid md:grid-cols-2">
-                <!-- Exploit console panel -->
-                <div id="exploit-status-panel" class="gap-4 bg-gray-800 p-6 rounded-lg flex flex-col h-full w-full">
-                    <div class="flex justify-between w-auto" style="align-items: baseline;">
-                        <h2 class="text-xl font-semibold mb-4" id="state">Exploit status (FW 14.02)</h2>
-                        <button id="successRate" style="white-space: nowrap;"
-                            class="text-base font-semibold duration-300 transform hover:scale-102 hover:border-bottom cursor-pointer"
-                            onclick="clearStats()">
-                            Success rate
-                        </button>
-                    </div>
-                    <div id="DebugConsole"
-                        class="flex-grow min-h-0 min-h-[150px] bg-black/50 p-4 rounded-lg overflow-y-auto mb-4 text-xs font-mono"
-                        dir="ltr">
-                        <pre id='console'><center>--</center></pre>
-                    </div>
-                    <!-- HEN Selector -->
-                    <div id="henSelection" class="flex items-center justify-center gap-4">
-                        <label class="flex items-center px-2 py-1 rounded bg-gray-700/60 hover:bg-gray-700 cursor-pointer shadow border-2 border-transparent focus-within:border-blue-500"
-                            id="goldhen-label-exploit">
-                            <input type="radio" name="hen2" value="GoldHEN" class="accent-blue-500 w-4 h-4 ml-2"
-                                onchange="saveJbFlavor(this.name, this.value)" checked>
-                            <span class="text-base font-semibold text-white/90 select-none">GoldHEN</span>
-                        </label>
-                        <button id="exploitRun"
-                            class="flex items-center justify-center bg-blue-600 hover:bg-blue-700 p-2 rounded-full transition-colors cursor-pointer">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-play" viewBox="0 0 16 16">
-                                <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z" />
-                            </svg>
-                        </button>
-                    </div>
+            <!-- قسم البايلودز (Payloads Section) - محتفظ بكامل عناصره ووظائفه -->
+            <div id="payloadsSection" class="bg-gray-800 p-6 rounded-lg flex flex-col h-full" style="background: #1f2937; padding: 20px; border-radius: 8px; border: 1px solid #374151;">
+                <h2 class="text-xl font-semibold mb-4" id="payloads-section-title" style="font-size: 18px; color: #fff;">Payloads Hub</h2>
+                
+                <!-- تبويبات البايلودز (Tools, Homebrew, Linux, Custom) -->
+                <div class="border-b border-gray-700 w-full mb-4 tabs">
+                    <ul class="flex flex-wrap text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist" style="display: flex; list-style: none; padding: 0; margin: 0; gap: 5px;">
+                        <li style="flex: 1;"><button class="w-full p-2 rounded bg-gray-700 text-center cursor-pointer" id="tools-tab" data-tabs-target="#tools" type="button" role="tab" style="width:100%; background:#374151; border:none; color:#fff; padding:8px; border-radius:4px;">Tools</button></li>
+                        <li style="flex: 1;"><button class="w-full p-2 rounded bg-gray-700 text-center cursor-pointer" id="homebrew-tab" data-tabs-target="#homebrew" type="button" role="tab" style="width:100%; background:#374151; border:none; color:#fff; padding:8px; border-radius:4px;">Homebrew</button></li>
+                        <li style="flex: 1;"><button class="w-full p-2 rounded bg-gray-700 text-center cursor-pointer" id="linux-tab" data-tabs-target="#linux" type="button" role="tab" style="width:100%; background:#374151; border:none; color:#fff; padding:8px; border-radius:4px;">Linux</button></li>
+                        <li style="flex: 1;"><button class="w-full p-2 rounded bg-gray-700 text-center cursor-pointer" id="custom-tab" data-tabs-target="#custom" type="button" role="tab" style="width:100%; background:#374151; border:none; color:#fff; padding:8px; border-radius:4px;">Custom</button></li>
+                    </ul>
                 </div>
 
-                <!-- Payloads section -->
-                <div id="payloadsSection" class="gap-4 bg-gray-800 p-6 rounded-lg flex flex-col h-full">
-                    <div class="flex justify-between">
-                        <div>
-                            <h2 class="text-xl font-semibold mb-4" id="payloads-section-title">
-                                Payloads
-                            </h2>
-                        </div>
-                        <div class="flex items-center flex-col gap-2">
-                            <input type="text" id="ps4IpInput"
-                                class="hidden bg-blue-600 hover:bg-blue-700 p-1 rounded font-semibold transition-colors text-white border-transparent text-center"
-                                placeholder="PS4 IP Address">
-                            <!-- قائمة الفيرجينات المختصرة حصرياً لـ 14.02 -->
-                            <select style="background: transparent;" id="ps4FwSelect"
-                                class="hidden p-1 text-center rounded font-semibold transition-colors text-white">
-                                <option value="14.02" selected>14.02</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="border-b border-gray-200 border-gray-700 w-full sticky top-0 bg-gray-800 z-10 tabs">
-                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center w-full" id="default-tab"
-                            data-tabs-toggle="#default-tab-content" role="tablist">
-                            <li class="flex-1" role="presentation">
-                                <button class="w-full inline-block p-4 border-b-2 rounded-t-lg" id="tools-tab"
-                                    data-tabs-target="#tools" type="button" role="tab" aria-controls="tools"
-                                    aria-selected="false">Tools</button>
-                            </li>
-                            <li class="flex-1" role="presentation">
-                                <button class="w-full inline-block p-4 border-b-2 rounded-t-lg" id="homebrew-tab"
-                                    data-tabs-target="#homebrew" type="button" role="tab" aria-controls="homebrew"
-                                    aria-selected="false">Homebrew</button>
-                            </li>
-                            <li class="flex-1" role="presentation">
-                                <button class="w-full inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 hover:text-gray-300"
-                                    id="linux-tab" data-tabs-target="#linux" type="button" role="tab"
-                                    aria-controls="linux" aria-selected="false">Linux</button>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="payloadsGrid" class="space-y-3 overflow-y-auto flex-grow max-h-[calc(100vh-250px)]"
-                        style="overflow-x: hidden !important;">
-                        <div id="default-tab-content" class="bg-gray-800">
-                            <div class="hidden p-4 rounded-lg bg-gray-800" id="tools" role="tabpanel" aria-labelledby="tools-tab"></div>
-                            <div class="hidden p-4 rounded-lg bg-gray-800" id="homebrew" role="tabpanel" aria-labelledby="homebrew-tab"></div>
-                            <div class="hidden p-4 rounded-lg bg-gray-800" id="linux" role="tabpanel" aria-labelledby="linux-tab"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Popups -->
-    <div class="fixed inset-0 bg-black/50 z-50 flex backdrop-blur-sm items-center justify-center p-4 hidden"
-        id="about-popup-overlay">
-        <div id="about-popup" class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md">
-            <h2 class="text-2xl font-bold">About 14.02 Host</h2>
-            <div class="space-y-2 text-white/80">
-                <p>Dedicated Host for PS4 Firmware 14.02</p>
-                <p>Powered by WebKitty & Slopkit-Afterglow</p>
-            </div>
-            <div id="PS4FWOK" class="mt-4">
-                <h3 class="text-l font-bold mb-4">Supported Firmware</h3>
-                <div id="listfw" class="text-sm text-white/70 mb-4">
-                    <p id="fw140x">Firmware 14.02 Only</p>
-                </div>
-            </div>
-            <button onclick="aboutPopup()"
-                class="mt-6 w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold transition-colors"
-                id="close-about">Close</button>
-        </div>
-    </div>
-
-    <!-- Settings popup -->
-    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden"
-        id="settings-popup-overlay">
-        <div id="settings-popup" class="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <h2 class="text-2xl font-bold mb-4">Settings</h2>
-            <div id="advancedPayloads" class="mb-6">
-                <h3 class="text-lg font-semibold mb-2" id="optionsHeader">Options</h3>
-                <label id="autoJbOption" class="flex items-center text-white/80">
-                    <input type="checkbox" id="autoJb" onclick="setAutoJb(this.checked)">
-                    <p id="autoJbText">Auto Jailbreak</p>
-                </label>
-            </div>
-            <button onclick="settingsPopup()"
-                class="mt-6 w-full bg-blue-600 hover:bg-blue-700 p-3 rounded font-semibold transition-colors"
-                id="close-settings">Close</button>
-        </div>
-    </div>
-
-    <script>
-        // Global Error Tracker
-        function reportGlobalError(title, details) {
-            var errorConsole = document.getElementById('console');
-            if (!errorConsole) return;
-
-            if (errorConsole.textContent.trim() === '--') {
-                errorConsole.textContent = '';
-            }
-
-            var entry = document.createElement('span');
-            entry.style.color = '#f87171';
-            entry.style.whiteSpace = 'pre-wrap';
-            entry.textContent = title + '\n' + details + '\n\n';
-            errorConsole.appendChild(entry);
-
-            var consolePanel = document.getElementById('DebugConsole');
-            if (consolePanel) consolePanel.scrollTop = consolePanel.scrollHeight;
-        }
-
-        window.onerror = function (msg, url, lineno, colno, error) {
-            var stack = error && error.stack ? error.stack : 'No stack trace';
-            var details = 'URL: ' + url + '\nLine: ' + lineno + ', Col: ' + colno + '\n\n' + stack;
-            console.error('[onerror]', msg, url, lineno, colno, stack);
-            reportGlobalError('Error: ' + msg, details);
-            return true;
-        };
-
-        window.addEventListener('unhandledrejection', function (event) {
-            var reason = event.reason;
-            var msg = reason instanceof Error
-                ? reason.message + '\n\nStack:\n' + reason.stack
-                : String(reason);
-            console.error('[unhandledrejection]', reason);
-            reportGlobalError('Unhandled Promise Rejection:', msg);
-        });
-
-        // Forced Firmware setup for 14.02 dedicated mode
-        window.targetFirmware = "14.02";
-    </script>
-    <script src="./includes/js/storage.js"></script>
-    <script src="./includes/js/testMode.js"></script>
-    <script src="./includes/js/firmware.js"></script>
-    <script src="./includes/js/utilities.js"></script>
-    <script src="./includes/js/HENs.js"></script>
-    <script src="./includes/js/checkFw.js"></script>
-    
-    <!-- Main logic loader -->
-    <script id="main-logic-loader">
-        (function () {
-            var isModern = 'noModule' in document.createElement('script');
-            var scriptPath = isModern ? './includes/js/jailbreak.js' : './includes/js/jailbreak-legacy.js';
-            document.write('<script src="' + scriptPath + '"><\/script>');
-        })();
-    </script>
-    
-    <script src="./includes/js/initial.js"></script>
-    <script src="./includes/js/cache.js"></script>
-    <script src="./includes/js/deliverPayload.js"></script>
-    <script src="./includes/js/payloadsList.js"></script>
-    <script src="./includes/js/design.js"></script>
-    <script src="./includes/js/language.js"></script>
-    <script src="./includes/js/autoJbRetry.js"></script>
-    <script src="./includes/js/events.js"></script>
-    <script src="./includes/js/payloadsHandler.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.abortLoading) return;
-            if (typeof loadSettings === 'function') {
-                loadSettings();
-            }
-        });
-    </script>
-</body>
-
-</html>
+                <!-- مساحة عرض القوائم والبايلودز -->
+                <div id="payloadsGrid" class="space-y-3 overflow-y-auto flex-grow" style="max-height: 200px; overflow-y: auto;" style="overflow-x: hidden !important;">
+                    <div id="default-tab-content">
+                        <div class="p-2 rounded bg-gray-700/50" id="tools" role="tabpanel" aria-labelledby="tools-tab"></div>
+                        <div class="p-2 rounded bg-gray-700/50" id="homebrew" role="tabpanel" aria-labelledby="homebrew-tab"></div>
+                        <div class="p-2 rounded bg-gray-700/50" id="linux" role="tabpanel" aria-labelledby="linux-tab"></div>
+                        <div class="p-2 rounded bg-gray-700/50" id="custom" role="tabpanel" aria-labelledby="custom-tab">
+                            <p class="text-sm text-white/80 mb-2" id="customPayloadUpload">Upload a custom payload (.bin / .elf)</p>
+                            <div class="flex gap-2" style="display: flex; gap: 8px;">
+                                <input type="file" id="customPayload
