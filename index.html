@@ -5,22 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PS4 Exploit Host by The Bunny (^w^)</title>
 <link rel="stylesheet" href="style.css">
-<style>
-  /* تنسيق الحاوية لتجعل الزرين جمب بعض تماماً وبشكل متناسق بدون مشاكل عرض */
-  .btn-group-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 15px;
-      width: 100%;
-  }
-  /* تعديل قياسات الأزرار لتكون نصف الحجم السابق وموزعة بذكاء */
-  .btn-group-row .btn {
-      flex: 1;
-      max-width: 205px;
-      margin: 0 !important;
-  }
-</style>
 </head>
 <body>
 
@@ -31,22 +15,13 @@
 <div id="menu">
   <h1 style="font-size: 16px; color: #ff7b00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1.5px;">Select Your Firmware</h1>
 
-  <!-- حاوية الزرين المتجاورين (زر الكشف التلقائي + زر 14.02 الجديد) -->
-  <div class="btn-group-row">
-    <button class="btn btn-multi" 
-            onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="location.replace('g2all/index.html')">
-      GoldHEN Multi FW
-    </button>
-
-    <button class="btn" 
-            onmouseover="msgs.innerHTML='PS4 slopkit-afterglow Exploit for Firmware 14.02'" 
-            onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
-            onclick="location.replace('14.02/index.html')">
-      FW 14.02 Exploit
-    </button>
-  </div>
+  <button class="btn btn-multi" 
+          onmouseover="msgs.innerHTML='PS4 GoldHEN Host for 5.05 and 7.00 to 14.00 FW - (Auto Exploit Selection)'" 
+          onmouseout="msgs.innerHTML='PS4 Exploit Host by The Bunny (^w^)'" 
+          onclick="location.replace('g2all/index.html')">
+    GoldHEN Multi FW
+  </button>
+  <br>
 
   <button class="btn" 
           onmouseover="msgs.innerHTML='PS4 5.05 FW Host v2.5'" 
